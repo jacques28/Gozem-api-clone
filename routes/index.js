@@ -1,12 +1,5 @@
-var express = require('express');
-var router = express.Router();
-
-const positions = [1,2,3,4];
-
- let findNearestPerson= ()=>{
-
-}
-
+const express = require('express');
+const router = express.Router();
 
 
 /* GET home page. */
