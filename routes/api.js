@@ -39,37 +39,17 @@ router.get('/', (req, res,next)=>{
 
 router.post('/', function(req, res, next) {
     Position.create(req.body).then(function (postion){
-      res.send(postion);
+        res.send(postion);
     }).catch(next);
 
 });
 
 
 router.delete('/:id', function(req, res, next) {
-  Position.findByIdAndDelete({_id:req.params.id}).then(function (position) {
-    res.send(position);
-  })
-  res.send('resource well deleted');
+    Position.findByIdAndDelete({_id:req.params.id}).then(function (position) {
+        res.send(position);
+    })
+    res.send('resource well deleted');
 });
-
-
-
-
-
-
-
-
-// router.post('/', async function(req, res, next) {
-//   try {
-//     let uPosition = new uPosition(req.body);
-//     const createuPosition = await uPosition.save();
-//     res.json(createuPosition);
-//     console.log(req.body); // NEED TO BE REMOVED
-//   } catch (error) {
-//   next(error);
-//   }
-//
-// });
-
 
 module.exports = router;

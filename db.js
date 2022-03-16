@@ -1,26 +1,35 @@
 const mongoose = require('mongoose');
-const geocoder = require('geocoder');
+require('dotenv').config();
+//const geocoder = require('geocoder');
 
-mongoose.connect(DB_CONNECTION,{ useNewUrlParser: true ,useUnifiedTopology: true});
+mongoose.connect(process.env.DB_CONNECTION,{ useNewUrlParser: true ,useUnifiedTopology: true});
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-let PositionSchema = new Schema({
-    name: {         //Our location
+const GeoSchema = new Schema({
+    type: {
         type: String,
-        require: true
+        default:"Point"
     },
-    // geometry: [{
-    //     radius: 75,
-    //     type: "Point",
-    //     shapeType: "Circle",
+    coordinates:{
+        type:[Number],
+        index:"2dsphere"
+    }
 
-    type: String,           //Feature
-        coordinates: {         //latitude and longitude
-            lat: String,
-            log: String
-        }
 })
+
+const PositionSchema = new Schema({
+    name:{
+        type: String
+    },
+    available:{
+        type: Boolean,
+        default: false
+    },
+    geometry: GeoSchema
+
+
+});
 
 
 module.exports = mongoose.model('Position', PositionSchema)
