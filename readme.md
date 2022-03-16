@@ -4,12 +4,6 @@ Step for building the api:
 
 -It receives nearby places based on the user’s location by making an HTTP Request To Places API.
 
-Step for building the api:
------
--It takes the user’s location using the HTML5 Geolocation API.
-
--It receives nearby places based on the user’s location by making an HTTP Request To Places API.
-
 ----
 AUTH:
 
