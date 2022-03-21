@@ -3,39 +3,27 @@ const router = express.Router();
 const Position = require('../db');
 
 
-
 /* GET users listing. */
 router.get('/', (req, res,next)=>{
 
-    Position.geoNear(
-        {type:'Point', coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)]},
-        {maxDistance: 100000, spherical: true}
+    Position.aggregate().near({
+            near: {
+                    'type': 'Point',
+                    'coordinates': [parseFloat(req.query.lng), parseFloat(req.query.lat)] },
+            maxDistance: 1000000,
+            spherical: true,
+            distanceField: "dis"
+        }
     ).then(function(postion){
         res.send(postion);
     });
 
 
+    // Position.find({}, function(err, postion) { // FIXME: need to be removed
+    //     res.json(postion);
+    // });
+
 })
-
-
-// router.post('/', (req, res) => {
-//   var uPosition = new Position ({
-//     name: req.body.position,
-//
-//   });
-//
-//   uPosition.save( (err) => {
-//     if (err) {
-//       res.type('html').status(500);
-//       res.send('Error: ' + err);
-//     }
-//     else {
-//       res.send('GOOD JOB', {Position : uPosition});
-//     }
-//   } );
-//
-// });
-
 
 router.post('/', function(req, res, next) {
     Position.create(req.body).then(function (postion){
